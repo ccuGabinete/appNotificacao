@@ -1,0 +1,8 @@
+<div class="alerta" *ngIf="loadingSalvar">
+    <span>arquivo salvo com sucesso</span>
+  </div>
+
+  <div class="alerta" *ngIf="!loadingSalvar">
+    <span>Dados não encontrados </span>
+    <span>ou sem internet</span>
+  </div>

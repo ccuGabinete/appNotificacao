@@ -1,0 +1,227 @@
+<div class="unicorn-dark-theme">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>NOTIFICAÇÃO</span>
+      <mat-icon matTooltip="logout" (click)="onLogout()"> directions_run</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img [src]="link" style="width: 2em; height: 2em; transform: rotate(270deg); margin-right: 1em">
+  <a class="navbar-brand" href="" style="color: teal; font-size: 1em;">{{usuario}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input matTooltip="Número do documento fornecido" [(ngModel)]="documento.numero"
+        [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search" placeholder="documento"
+        aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="openSource()">Buscar</button>
+    </form>
+  </div>
+</nav>
+
+<div class="alinhamentoItens" *ngIf="false">
+  <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://codigofonte.uol.com.br" id='qrcode'>
+</div>
+
+<div class="alinhamentoItens">
+  <div class="unicorn-dark-theme">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Inscriçao Municipal" name="inscricaomunicipal" id="inscricaomunicipal"
+        (change)="buscaNotificado(notificado.matricula)" (focus)='limpaCampo()' [(ngModel)]='notificado.matricula'
+        maxlength="8">
+    </mat-form-field>
+  </div>
+
+  <div class="unicorn-dark-theme">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Nome do Titular" name="nomedotitular" id="nomedotitular"
+        [(ngModel)]='notificado.nome' [disabled]="true">
+    </mat-form-field>
+  </div>
+
+
+  <mat-accordion class="unicorn-dark-theme">
+    <mat-expansion-panel class="fastamentoAcordion">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados complementares
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="CPF" name="cpf" id="cpf" [(ngModel)]='notificado.cpf'
+            [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Concessão" name="concessao" id="concessao"
+            [(ngModel)]='notificado.concessao' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Equipamento" name="equipamento" id="equipamento"
+            [(ngModel)]='notificado.equipamento' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Local" name="local" id="local" [(ngModel)]='notificado.local'
+            [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Nome do Auxiliar" name="nomeaux" id="nomeaux"
+            [(ngModel)]='notificado.nomeaux' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="CPF do Auxiliar" name="cpfaux" id="cpfaux"
+            [(ngModel)]='notificado.cpfaux' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Situação" name="situacao" id="situacao"
+            [(ngModel)]='notificado.situacao' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Isento" name="situacao" id="isento" [(ngModel)]='notificado.isento'
+            [disabled]="true">
+        </mat-form-field>
+      </div>
+
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="fastamentoAcordion">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados da ação
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-form-field class="unicorn-dark-theme">
+        <input matInput [matDatepicker]="picker" placeholder="Data da ação" [(ngModel)]='notificado.dataacao'>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput placeholder="Local da infração" ngx-google-places-autocomplete [options]='options'
+            (onAddressChange)="handleAddressChange($event)" [(ngModel)]='notificado.localacao' />
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Bairro" name="bairro" id="bairro"
+            [disabled]="true" [(ngModel)]='notificado.bairroacao'>
+        </mat-form-field>
+      </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="fastamentoAcordion">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dados do Auto
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Número do Auto" name="numerodoauto" id="numerodoauto" maxlength="6"
+            [(ngModel)]='notificado.infracao'>
+        </mat-form-field>
+      </div>
+
+
+      <mat-form-field class="unicorn-dark-theme">
+        <input matInput [matDatepicker]="picker2" placeholder="Data da autuação" [(ngModel)]='notificado.dataInfracao'>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput placeholder="CEP" ngx-google-places-autocomplete [options]='options'
+            (onAddressChange)="handleAddressChangeCep($event)" />
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Endereço" name="endereco" id="endereco" [disabled]="true"
+            [(ngModel)]='notificado.endereco'>
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Número" name="numero" id="numero" [(ngModel)]='notificado.numero'>
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Complemento" name="complemento" id="complemento" [(ngModel)]='notificado.complemento'>
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Município" name="municipio" id="municipio" [(ngModel)]='notificado.municipio' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div class="unicorn-dark-theme">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Bairro" name="bairro" id="bairro" [(ngModel)]='notificado.bairro' [disabled]="true">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="unicorn-dark-theme">
+          <mat-label>Pontos</mat-label>
+          <mat-select color="primary" [(ngModel)]='notificado.pontos'>
+            <mat-option *ngFor="let ponto of [2,5]" [value]="ponto">
+              {{ponto}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+
+
+  <div class="alinhamentoButton unicorn-dark-theme">
+    <button mat-button color="primary" (click)="downloadPDF()" #submitButton>Salvar</button>
+  </div>
+</div>

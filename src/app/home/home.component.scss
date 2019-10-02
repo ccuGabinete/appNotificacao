@@ -1,0 +1,45 @@
+
+.example-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 25%;
+  top: 20%;
+  margin-bottom: 25%;
+  margin-left: 37.5%;
+  align-items: center;
+  background-color:#101010;
+  justify-content: center;
+  padding: 5%;
+}
+
+.enviar{
+ margin-top: 10%;
+}
+
+mat-form-field{
+ width: 100%;
+}
+
+::ng-deep .mat-form-field {
+ .mat-input-element {
+     color:white;
+ }
+ .mat-form-field-label {
+     color: white;
+ }
+ .mat-form-field-ripple {
+     background-color: white;
+ }
+
+}
+
+.mat-button.mat-blue {
+  color: blue;
+}
+
+.mat-raised-button.mat-blue, .mat-flat-button.mat-blue{
+  background-color: blue;
+  color: white;
+}
