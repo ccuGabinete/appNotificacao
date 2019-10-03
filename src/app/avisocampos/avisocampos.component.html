@@ -1,3 +1,11 @@
-<div class="alerta" *ngIf="!loadingCampos">
+<div class="alerta" *ngIf="loadingCampos === 2">
     <span>preencha todos os campos</span>
+</div>
+
+<div class="alerta" *ngIf="loadingCampos === 3">
+  <span>Sucesso: dados salvos</span>
+</div>
+
+<div class="alerta" *ngIf="loadingCampos === 4">
+  <span>Erro: verifique sua conexão</span>
 </div>

@@ -1,3 +1,3 @@
 export class Avisocamposmodel {
-    aviso: boolean;
+    aviso: number;
 }

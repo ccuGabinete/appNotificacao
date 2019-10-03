@@ -11,11 +11,11 @@ export class AvisocamposService {
   public messageSource = new BehaviorSubject(this.message.aviso);
   currentMessage = this.messageSource.asObservable();
 
-  constructor() { 
-      this.message.aviso = false;
+  constructor() {
+    this.message.aviso = 1;
   }
 
-  mudarAviso(aviso: boolean){
-      this.messageSource.next(aviso);
+  mudarAviso(aviso: number) {
+    this.messageSource.next(aviso);
   }
 }

@@ -1,4 +1,3 @@
-import { FormularioComponent } from './formulario/formulario.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
@@ -13,10 +12,6 @@ const routes: Routes = [
   {
     path: 'dados',
     component: DadosComponent
-  },
-  {
-    path: 'formulario',
-    component: FormularioComponent
   }
 ];
 

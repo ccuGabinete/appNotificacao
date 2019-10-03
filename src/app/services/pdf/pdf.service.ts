@@ -556,6 +556,14 @@ export class PdfService {
 
       doc.setFontSize(12);
       doc.setFont('times', 'normal');
+      doc.setProperties({
+        title: 'Auto de Infração nº' + notificado.infracao,
+        subject: 'Notificação do(a) Sr(a)' + notificado.nome,
+        author: notificado.agenterespcadastro,
+        keywords: ' ',
+        creator: 'Coordenadoria de Controle Urbano'
+
+      });
 
       //#region
       doc.rect(coord.mainbox.x, coord.mainbox.y, coord.mainbox.w, coord.mainbox.h);
@@ -656,7 +664,7 @@ export class PdfService {
       //#endregion
 
 
-      doc.save('teste.pdf');
+      doc.save('Auto nº ' + notificado.infracao);
 
     });
 

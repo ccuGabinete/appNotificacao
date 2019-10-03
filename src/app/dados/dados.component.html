@@ -14,17 +14,6 @@
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input matTooltip="Número do documento fornecido" [(ngModel)]="documento.numero"
-        [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search" placeholder="documento"
-        aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="openSource()">Buscar</button>
-    </form>
-  </div>
 </nav>
 
 <div class="alinhamentoItens" *ngIf="false">
@@ -42,7 +31,7 @@
 
   <div class="unicorn-dark-theme">
     <mat-form-field>
-      <input matInput type="text" placeholder="Nome do Titular" name="nomedotitular" id="nomedotitular"
+      <input matInput type="text" placeholder="Nome do titular" name="nomedotitular" id="nomedotitular"
         [(ngModel)]='notificado.nome' [disabled]="true">
     </mat-form-field>
   </div>
@@ -87,14 +76,14 @@
 
       <div class="unicorn-dark-theme">
         <mat-form-field>
-          <input matInput type="text" placeholder="Nome do Auxiliar" name="nomeaux" id="nomeaux"
+          <input matInput type="text" placeholder="Nome do auxiliar" name="nomeaux" id="nomeaux"
             [(ngModel)]='notificado.nomeaux' [disabled]="true">
         </mat-form-field>
       </div>
 
       <div class="unicorn-dark-theme">
         <mat-form-field>
-          <input matInput type="text" placeholder="CPF do Auxiliar" name="cpfaux" id="cpfaux"
+          <input matInput type="text" placeholder="CPF do auxiliar" name="cpfaux" id="cpfaux"
             [(ngModel)]='notificado.cpfaux' [disabled]="true">
         </mat-form-field>
       </div>
@@ -222,6 +211,6 @@
 
 
   <div class="alinhamentoButton unicorn-dark-theme">
-    <button mat-button color="primary" (click)="downloadPDF()" #submitButton>Salvar</button>
+    <button mat-button color="primary" (click)="onSubmit()" #submitButton>Gerar Notificação</button>
   </div>
 </div>

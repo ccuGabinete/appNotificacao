@@ -1,8 +1,8 @@
 {
-  "name": "ccu-atendimento",
-  "version": "1.1.7",
+  "name": "ccu-notificacao",
+  "version": "1.0.0",
   "description": "Programa para cadastro de atendidos",
-  "homepage": "https://github.com/ccuGabinete/appAtendimento.git",
+  "homepage": "https://github.com/ccuGabinete/appNotificacao.git",
   "author": {
     "name": "Nieraldo Lima",
     "email": "nieraldo@gmail.com"

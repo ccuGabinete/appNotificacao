@@ -7,14 +7,15 @@ import { AvisocamposService } from '../services/avisocampos/avisocampos.service'
   styleUrls: ['./avisocampos.component.scss']
 })
 export class AvisocamposComponent implements OnInit {
-  loadingCampos: boolean = true;
-  
+  loadingCampos = 1;
+
   constructor(private avisocampos: AvisocamposService) { }
 
   ngOnInit() {
     this.avisocampos.currentMessage.subscribe(x =>  {
       this.loadingCampos = x;
-    })
+      console.log(x);
+    });
   }
 
 }

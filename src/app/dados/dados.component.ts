@@ -1,17 +1,13 @@
+import { SalvarcadastroService } from './../services/salvarcadastro/salvarcadastro.service';
 import { BuscacepService } from './../services/buscacep/buscacep.service';
 import { Localmulta } from './../models/localmulta/localmulta';
 import { InscricaomunicipalService } from '../services/inscricaomunicipal/InscricaomunicipalService';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Setores } from '../models/setores/setores';
-import { Documentos } from '../models/documentos/documentos';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { AvisosalvarService } from '../services/avisosalvar/avisosalvar.service';
-import { AvisosalvarComponent } from '../avisosalvar/avisosalvar.component';
 import { AvisocamposComponent } from '../avisocampos/avisocampos.component';
 import { LogadoService } from '../services/logado/logado.service';
 import { AvisocamposService } from '../services/avisocampos/avisocampos.service';
 import * as moment from 'moment-timezone';
-import { Buscacadastro } from '../models/busca/buscacadastro';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario/usuario';
 import { Notificado } from '../models/notificado/notificado';
@@ -43,40 +39,77 @@ export class DadosComponent implements OnInit, OnDestroy {
     public notificado: Notificado,
     public inscmunservice: InscricaomunicipalService,
     private _snackBar: MatSnackBar,
-    private serviceSalvar: AvisosalvarService,
     private serviceCampos: AvisocamposService,
     private logado: LogadoService,
-    public documento: Buscacadastro,
     public local: Localmulta,
     public buscacepService: BuscacepService,
-    private pdfservice: PdfService
+    private pdfservice: PdfService,
+    private salvarnotificado: SalvarcadastroService
   ) { }
 
-  setores = new Setores().getTipos();
-  documentos = new Documentos().getDocs();
   @ViewChild('submitButton', { static: true }) submitButton;
   ngOnInit() {
     this.notificado = new Notificado();
     this.local = new Localmulta();
-    this.documento = new Buscacadastro(); // classe que representa apenas um atributo para resgatar o número do documento entre views
-    this.documento.numero = '';
 
     this.logado.currentMessage.subscribe(user => {
       this.usuario = user.nome;
       (user.link) ? this.link = user.link.replace('open', 'uc') : this.link = '';
-
+      this.notificado.agenterespcadastro = user.nome;
     });
+
+
   }
 
   downloadPDF() {
-    this.notificado.dataTexto = this.pdfservice.getDataExtenso(this.gerarData());
-    this.notificado.data = this.gerarData();
-    this.notificado.notificacao = '4245';
-    // tslint:disable-next-line: max-line-length
-    this.notificado.qrcode = googleUrl + this.notificado.infracao;
-    return this.pdfservice.downloadPDF(this.notificado);
+    this.salvarnotificado.buscarCadastro().subscribe(data => {
+      this.notificado.notificacao = data.body.total + 4000;
+      this.notificado.notificacao = this.notificado.notificacao.toString();
+      console.log(this.notificado);
+      if (!this.notificado.complemento) {
+        this.notificado.complemento = '';
+      }
+      this.notificado.dataTexto = this.pdfservice.getDataExtenso(this.gerarData());
+      this.notificado.data = this.gerarData();
+      // tslint:disable-next-line: max-line-length
+      this.notificado.qrcode = googleUrl + this.notificado.infracao;
+      return this.pdfservice.downloadPDF(this.notificado);
+    });
   }
 
+  onSubmit() {
+    if (this.testaCampos()) {
+      this.salvarnotificado.salvarCadastro(this.notificado).subscribe(data => {
+        this.downloadPDF();
+      }, error => this.serviceCampos.mudarAviso(4)
+      );
+    } else {
+      this.serviceCampos.mudarAviso(2);
+      this.openSnackBarCampos();
+    }
+  }
+
+  testaCampos(): boolean {
+    if (
+      !this.notificado.matricula ||
+      !this.notificado.nome ||
+      !this.notificado.endereco ||
+      !this.notificado.numero ||
+      !this.notificado.municipio ||
+      !this.notificado.bairro ||
+      !this.notificado.cep ||
+      !this.notificado.infracao ||
+      !this.notificado.dataInfracao ||
+      !this.notificado.dataacao ||
+      !this.notificado.localacao ||
+      !this.notificado.bairroacao ||
+      !this.notificado.pontos
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   changeEvent() {
     this.submitButton.focus();
@@ -93,24 +126,6 @@ export class DadosComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('');
   }
 
-
-  onSubmit() {
-    if (1 === 1) {
-      this.serviceCampos.mudarAviso(false);
-      this.openSnackBarCampos();
-    } else {
-      this.serviceSalvar.mudarAviso(true);
-
-    }
-  }
-
-  openSnackBarSalvar() {
-    const config = new MatSnackBarConfig();
-    config.duration = 5000;
-    config.verticalPosition = 'top';
-    this._snackBar.openFromComponent(AvisosalvarComponent, config);
-  }
-
   openSnackBarCampos() {
     const config = new MatSnackBarConfig();
     config.duration = 5000;
@@ -118,23 +133,12 @@ export class DadosComponent implements OnInit, OnDestroy {
     this._snackBar.openFromComponent(AvisocamposComponent, config);
   }
 
-  reset() {
-    this.nome = null;
-  }
+
 
   gerarData() {
     const data = Date.now();
     const dateMoment = moment(data);
     return dateMoment.tz('America/Sao_Paulo').format('DD/MM/YYYY');
-  }
-
-  openSource() {
-    this.documento.numero = this.documento.numero
-      .split('/').join('')
-      .split('.').join('')
-      .split('-').join('')
-      .split(',').join('');
-
   }
 
   buscaNotificado(value) {
@@ -154,12 +158,11 @@ export class DadosComponent implements OnInit, OnDestroy {
   }
 
   public handleAddressChange(address: any) {
-
-      if (address.address_components.length < 5) {
-        this.notificado.bairroacao = '';
-      } else {
-        this.notificado.bairroacao = address.address_components[1].long_name;
-      }
+    if (address.address_components.length < 5) {
+      this.notificado.bairroacao = '';
+    } else {
+      this.notificado.bairroacao = address.address_components[1].long_name;
+    }
   }
 
   public handleAddressChangeCep(address: any) {
@@ -173,10 +176,8 @@ export class DadosComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   ngOnDestroy(): void {
-    this.serviceSalvar.mudarAviso(false);
+    this.serviceCampos.mudarAviso(1);
   }
 
 }

@@ -1,4 +1,5 @@
 export class Notificado {
+  agenterespcadastro: string;
   matricula: string;
   concessao: Date;
   isento: string;

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Cadastro } from '../../interfaces/cadastro';
 import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { Notificado } from '../../models/notificado/notificado';
 
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = 'https://ccuapi.herokuapp.com/';
-const local = 'https://ccuapi.herokuapp.com/buscarDoc';
+const apiUrl = 'https://ccuapi.herokuapp.com/autos/salvar';
+const apiUrl2 = 'https://ccuapi.herokuapp.com/autos/contarLinhas';
+
 
 
 @Injectable({
@@ -20,15 +21,15 @@ export class SalvarcadastroService {
 
   constructor(private http: HttpClient) { }
 
-  salvarCadastro(cadastro: Cadastro): Observable<HttpResponse<Cadastro>> {
-    return this.http.post<Cadastro>(apiUrl, cadastro, { observe: 'response' })
+  salvarCadastro(cadastro: Notificado): Observable<HttpResponse<Notificado>> {
+    return this.http.post<Notificado>(apiUrl, cadastro, { observe: 'response' })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  buscarCadastro(numero: string): Observable<HttpResponse<Cadastro>> {
-    return this.http.post<Cadastro>(local, { numero: numero }, { observe: 'response' })
+  buscarCadastro(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(apiUrl2, { observe: 'response' })
       .pipe(
         catchError(this.handleError)
       );

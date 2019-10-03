@@ -23,7 +23,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { DadosComponent } from './dados/dados.component';
-import { Cadastro } from './models/cadastro/cadastro';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginService } from './services/acesso/login.service';
 import { HomeComponent } from './home/home.component';
@@ -38,13 +37,9 @@ import { AvisocamposService } from './services/avisocampos/avisocampos.service';
 import { AvisosalvarService } from './services/avisosalvar/avisosalvar.service';
 import { Avisocamposmodel } from './models/avisoscamposmodel/avisocamposmodel';
 import { Avisosalvarmodel } from './models/avisosalvarmodel/avisosalvarmodel';
-import { AvisosalvarComponent } from './avisosalvar/avisosalvar.component';
 import { AvisocamposComponent } from './avisocampos/avisocampos.component';
 import { LogadoService } from './services/logado/logado.service';
-import { FormularioComponent } from './formulario/formulario.component';
-import { CadastroService } from './services/cadastro/cadastro.service';
 import { MatIconModule } from '@angular/material/icon';
-import { Buscacadastro } from './models/busca/buscacadastro';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Usuario } from './models/usuario/usuario';
 import { Notificado } from './models/notificado/notificado';
@@ -64,8 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DadosComponent,
     HomeComponent,
     AlertaComponent,
-    AvisosalvarComponent,
-    AvisocamposComponent, FormularioComponent
+    AvisocamposComponent
   ],
   imports: [
     GooglePlaceModule,
@@ -98,7 +92,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     PdfService,
     Localmulta,
-    Cadastro,
     Aviso,
     LoginService,
     SucessoService,
@@ -107,8 +100,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     Avisosalvarmodel,
     Avisocamposmodel,
     LogadoService,
-    CadastroService,
-    Buscacadastro,
     Usuario,
     Notificado,
     MatDatepickerModule,
@@ -119,13 +110,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [AppComponent],
   exports: [
     AlertaComponent,
-    AvisocamposComponent,
-    AvisosalvarComponent
+    AvisocamposComponent
   ],
   entryComponents: [
     AlertaComponent,
-    AvisocamposComponent,
-    AvisosalvarComponent
+    AvisocamposComponent
   ]
 
 })
