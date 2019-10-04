@@ -57,32 +57,39 @@ export class DadosComponent implements OnInit, OnDestroy {
       (user.link) ? this.link = user.link.replace('open', 'uc') : this.link = '';
       this.notificado.agenterespcadastro = user.nome;
     });
-
-
   }
 
   downloadPDF() {
-    this.salvarnotificado.buscarCadastro().subscribe(data => {
-      this.notificado.notificacao = data.body.total + 4000;
-      this.notificado.notificacao = this.notificado.notificacao.toString();
-      console.log(this.notificado);
-      if (!this.notificado.complemento) {
-        this.notificado.complemento = '';
-      }
-      this.notificado.dataTexto = this.pdfservice.getDataExtenso(this.gerarData());
-      this.notificado.data = this.gerarData();
-      // tslint:disable-next-line: max-line-length
-      this.notificado.qrcode = googleUrl + this.notificado.infracao;
-      return this.pdfservice.downloadPDF(this.notificado);
-    });
+    this.pdfservice.downloadPDF(this.notificado);
   }
 
   onSubmit() {
     if (this.testaCampos()) {
-      this.salvarnotificado.salvarCadastro(this.notificado).subscribe(data => {
-        this.downloadPDF();
-      }, error => this.serviceCampos.mudarAviso(4)
-      );
+
+      this.logado.currentMessage.subscribe(user => {
+        this.notificado.data = this.gerarData();
+        this.notificado.dataInfracao  = this.gerarMomentData(this.notificado.dataInfracao);
+        this.notificado.dataacao  = this.gerarMomentData(this.notificado.dataacao);
+        this.notificado.agenterespcadastro = user.nome;
+        this.salvarnotificado.buscarCadastro().subscribe(data => {
+
+          this.notificado.notificacao = data.body.total + 2007;
+          this.notificado.notificacao = this.notificado.notificacao.toString();
+
+          if (!this.notificado.complemento) {
+            this.notificado.complemento = '';
+          }
+          this.notificado.dataTexto = this.pdfservice.getDataExtenso(this.gerarData());
+
+          // tslint:disable-next-line: max-line-length
+          this.notificado.qrcode = googleUrl + this.notificado.infracao;
+
+          this.salvarnotificado.salvarCadastro(this.notificado).subscribe(() => {
+            this.downloadPDF();
+          }, error => this.serviceCampos.mudarAviso(4)
+          );
+        });
+      });
     } else {
       this.serviceCampos.mudarAviso(2);
       this.openSnackBarCampos();
@@ -138,6 +145,11 @@ export class DadosComponent implements OnInit, OnDestroy {
   gerarData() {
     const data = Date.now();
     const dateMoment = moment(data);
+    return dateMoment.tz('America/Sao_Paulo').format('DD/MM/YYYY');
+  }
+
+  gerarMomentData(date) {
+    const dateMoment = moment(date);
     return dateMoment.tz('America/Sao_Paulo').format('DD/MM/YYYY');
   }
 

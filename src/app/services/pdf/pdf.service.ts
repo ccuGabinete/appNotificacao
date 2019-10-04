@@ -432,7 +432,7 @@ export class PdfService {
 
         text25: {
           texto: notificado.notificacao,
-          x: 104,
+          x: 106,
           y: 51
         },
 

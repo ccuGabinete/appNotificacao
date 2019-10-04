@@ -158,7 +158,7 @@
       <div class="unicorn-dark-theme">
         <mat-form-field>
           <input matInput placeholder="CEP" ngx-google-places-autocomplete [options]='options'
-            (onAddressChange)="handleAddressChangeCep($event)" />
+            (onAddressChange)="handleAddressChangeCep($event)" [(ngModel)]='notificado.cep' />
         </mat-form-field>
       </div>
 

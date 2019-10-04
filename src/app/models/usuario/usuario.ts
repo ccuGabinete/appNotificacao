@@ -4,4 +4,5 @@ export class Usuario {
   isValid: boolean;
   link: string;
   nome: string;
+  setor: string;
 }

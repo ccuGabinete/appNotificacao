@@ -14,7 +14,6 @@ export class AvisocamposComponent implements OnInit {
   ngOnInit() {
     this.avisocampos.currentMessage.subscribe(x =>  {
       this.loadingCampos = x;
-      console.log(x);
     });
   }
 

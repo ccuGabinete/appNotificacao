@@ -1,26 +1,26 @@
-Arguments: 
+Arguments:
   C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
 
-PATH: 
+PATH:
   C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk-11.0.4\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Users\win10\AppData\Local\Microsoft\WindowsApps;;C:\Users\win10\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\win10\AppData\Roaming\npm;C:\Users\win10\AppData\Local\Yarn\bin
 
-Yarn version: 
+Yarn version:
   1.17.3
 
-Node version: 
+Node version:
   10.16.1
 
-Platform: 
+Platform:
   win32 x64
 
-Trace: 
+Trace:
   Error: EPERM: operation not permitted, mkdir 'C:\Users\win10\Documents\CCU\notificaAutos\node_modules\.bin'
 
-npm manifest: 
+npm manifest:
   {
-    "name": "ccu-atendimento",
-    "version": "1.1.7",
-    "description": "Programa para cadastro de atendidos",
+    "name": "ccu-notifica",
+    "version": "1.0.0",
+    "description": "Programa pra envio de notificacoes",
     "homepage": "https://github.com/ccuGabinete/appAtendimento.git",
     "author": {
       "name": "Nieraldo Lima",
@@ -120,8 +120,8 @@ npm manifest:
     }
   }
 
-yarn manifest: 
+yarn manifest:
   No manifest
 
-Lockfile: 
+Lockfile:
   No lockfile
