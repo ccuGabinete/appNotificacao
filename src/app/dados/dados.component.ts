@@ -33,6 +33,7 @@ export class DadosComponent implements OnInit, OnDestroy {
     location: [-22.921712, -43.449187]
   };
 
+  loading = false;
 
   constructor(
     private router: Router,
@@ -155,8 +156,10 @@ export class DadosComponent implements OnInit, OnDestroy {
 
   buscaNotificado(value) {
     if (value && value.length === 8) {
+      this.loading = true;
       this.inscmunservice.buscarCadastro(value).subscribe(resp => {
         this.notificado = resp.body;
+        this.loading = false;
       }, () => this.notificado.nome = 'Inscrição Municipal inexistente'
       );
     } else {

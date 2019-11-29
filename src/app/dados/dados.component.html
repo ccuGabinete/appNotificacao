@@ -29,6 +29,10 @@
     </mat-form-field>
   </div>
 
+  <div class="spinner-border text-info spinner" role="status" *ngIf=loading>
+    <span class="sr-only" style="text-align: center;">Loading...</span>
+  </div>
+
   <div class="unicorn-dark-theme">
     <mat-form-field>
       <input matInput type="text" placeholder="Nome do titular" name="nomedotitular" id="nomedotitular"
@@ -36,9 +40,8 @@
     </mat-form-field>
   </div>
 
-
   <mat-accordion class="unicorn-dark-theme">
-    <mat-expansion-panel class="fastamentoAcordion">
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Dados complementares
@@ -105,7 +108,7 @@
 
     </mat-expansion-panel>
 
-    <mat-expansion-panel class="fastamentoAcordion">
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Dados da ação
@@ -134,7 +137,7 @@
 
     </mat-expansion-panel>
 
-    <mat-expansion-panel class="fastamentoAcordion">
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Dados do Auto
