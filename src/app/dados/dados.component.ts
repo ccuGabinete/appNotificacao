@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario/usuario';
 import { Notificado } from '../models/notificado/notificado';
 import { PdfService } from '../services/pdf/pdf.service';
-const googleUrl = 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://https://ccuapi.herokuapp.com/resposta/';
+const googleUrl = 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://dief.rio.rj.gov.br/smf/autos/default.asp';
 
 
 @Component({
@@ -83,7 +83,7 @@ export class DadosComponent implements OnInit, OnDestroy {
           this.notificado.dataTexto = this.pdfservice.getDataExtenso(this.gerarData());
 
           // tslint:disable-next-line: max-line-length
-          this.notificado.qrcode = googleUrl + this.notificado.infracao;
+          this.notificado.qrcode = googleUrl;
 
           this.salvarnotificado.salvarCadastro(this.notificado).subscribe(() => {
             this.downloadPDF();
